@@ -1,15 +1,16 @@
-import {cart} from '../data/cart.js';
-import { products } from '../data/products.js';
-let checkouthtml = '';
-cart.forEach((cartItem)=>{
-    const productId =cartItem.productId;
-    let matchingProduct;
-    products.forEach((item)=>{
-        if(item.id == productId){
-            matchingProduct = item;
-        }
-    });
-    const html = `<div class="cart-item-container">
+import { cart } from "../data/cart.js";
+import { products } from "../data/products.js";
+import { formatcurrency } from "./utils/money.js";
+let checkouthtml = "";
+cart.forEach((cartItem) => {
+  const productId = cartItem.productId;
+  let matchingProduct;
+  products.forEach((item) => {
+    if (item.id == productId) {
+      matchingProduct = item;
+    }
+  });
+  const html = `<div class="cart-item-container">
             <div class="delivery-date">
               Delivery date: Tuesday, June 21
             </div>
@@ -23,11 +24,13 @@ cart.forEach((cartItem)=>{
                   ${matchingProduct.name}
                 </div>
                 <div class="product-price">
-                 $${(matchingProduct.priceCents/100).toFixed(2)}
+                 $${formatcurrency(matchingProduct.priceCents)}
                 </div>
                 <div class="product-quantity">
                   <span>
-                    Quantity: <span class="quantity-label">${cartItem.quantity}</span>
+                    Quantity: <span class="quantity-label">${
+                      cartItem.quantity
+                    }</span>
                   </span>
                   <span class="update-quantity-link link-primary">
                     Update
@@ -45,7 +48,7 @@ cart.forEach((cartItem)=>{
                 <div class="delivery-option">
                   <input type="radio" checked
                     class="delivery-option-input"
-                    name="delivery-option-1">
+                    name="delivery-option-${matchingProduct.id}">
                   <div>
                     <div class="delivery-option-date">
                       Tuesday, June 21
@@ -58,7 +61,7 @@ cart.forEach((cartItem)=>{
                 <div class="delivery-option">
                   <input type="radio"
                     class="delivery-option-input"
-                    name="delivery-option-1">
+                    name="delivery-option-${matchingProduct.id}">
                   <div>
                     <div class="delivery-option-date">
                       Wednesday, June 15
@@ -71,7 +74,7 @@ cart.forEach((cartItem)=>{
                 <div class="delivery-option">
                   <input type="radio"
                     class="delivery-option-input"
-                    name="delivery-option-1">
+                    name="delivery-option-${matchingProduct.id}">
                   <div>
                     <div class="delivery-option-date">
                       Monday, June 13
@@ -83,7 +86,7 @@ cart.forEach((cartItem)=>{
                 </div>
               </div>
             </div>
-          </div>`
-    checkouthtml+=html;
-})
-document.querySelector('.order-summary').innerHTML = checkouthtml;
+          </div>`;
+  checkouthtml += html;
+});
+document.querySelector(".order-summary").innerHTML = checkouthtml;
