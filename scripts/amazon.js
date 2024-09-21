@@ -53,7 +53,7 @@ products.forEach((product) => {
   productsHtml += html;
 });
 document.querySelector(".products-grid").innerHTML = productsHtml;
-
+updatecartquantity();
 document.querySelectorAll(".js-add-to-cart").forEach((button) => {
   button.addEventListener("click", () => {
     const productId = button.dataset.productId;
